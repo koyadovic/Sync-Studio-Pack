@@ -160,6 +160,8 @@ function test_hases(){
 
 	if [ "$F" == "$C" ]; then
 	    TEST_HASH="OK"
+	else
+	    TEST_HASH="NO_OK"
 	fi
     fi
 
