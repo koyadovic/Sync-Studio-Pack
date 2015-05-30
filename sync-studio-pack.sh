@@ -109,7 +109,9 @@ function pack_modified_projects(){
     $ECHO
     $ECHO "[PACK] Starting to pack modified projects."
 
-    for PROJECT in `$FIND "$LOCAL_PROJECTS_DIRECTORY" -cnewer $LOCK_FILE | $CUT -d'/' -f5 | $UNIQ`;do
+    DEEP=`$ECHO "$LOCAL_PROJECTS_DIRECTORY" | $SED 's/\//\n/g' | $WC -l`
+    
+    for PROJECT in `$FIND "$LOCAL_PROJECTS_DIRECTORY" -cnewer $LOCK_FILE | $CUT -d'/' -f$((DEEP + 1)) | $UNIQ`;do
         pack_project $PROJECT
     done
 
