@@ -112,7 +112,9 @@ function pack_modified_projects(){
     DEEP=`$ECHO "$LOCAL_PROJECTS_DIRECTORY" | $SED 's/\//\n/g' | $WC -l`
     
     for PROJECT in `$FIND "$LOCAL_PROJECTS_DIRECTORY" -cnewer $LOCK_FILE | $CUT -d'/' -f$((DEEP + 1)) | $UNIQ`;do
-        pack_project $PROJECT
+    	if [ -d "$LOCAL_PROJECTS_DIRECTORY/$PROJECT" ]; then
+            pack_project $PROJECT
+        fi
     done
 
     $ECHO "[PACK] Finished."
